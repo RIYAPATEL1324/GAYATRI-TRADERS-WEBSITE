@@ -1,0 +1,1687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gayatri Traders — Premium Building Materials, Ahmedabad</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+  font-size:16px;
+}
+
+:root{
+  --night:#09090f;
+  --deep:#0e0e18;
+  --card:#13131f;
+  --card2:#18182a;
+  --gold:#c9a84c;
+  --gold2:#e2c068;
+  --gold3:#f0d898;
+  --cream:#f5f0e8;
+  --mist:#8a8799;
+  --border:rgba(201,168,76,0.15);
+  --border2:rgba(201,168,76,0.30);
+  --white:#fdfcf8;
+}
+
+body{
+  font-family:'Jost',sans-serif;
+  background:var(--night);
+  color:var(--white);
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* CURSOR */
+
+#cur{
+  position:fixed;
+  z-index:9999;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--gold);
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+  transition:width .25s,height .25s,opacity .25s;
+}
+
+#cur.grow{
+  width:36px;
+  height:36px;
+  background:transparent;
+  border:1px solid var(--gold2);
+  opacity:.7;
+}
+
+/* NAV */
+
+nav{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:200;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:1.6rem 4rem;
+
+  background:rgba(9,9,15,.82);
+
+  backdrop-filter:blur(20px);
+
+  border-bottom:1px solid var(--border);
+}
+
+.logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.55rem;
+  font-weight:600;
+  letter-spacing:.04em;
+  color:var(--white);
+  text-decoration:none;
+
+  display:flex;
+  align-items:baseline;
+  gap:.35rem;
+}
+
+.logo-sep{
+  color:var(--gold);
+}
+
+.logo-sub{
+  font-family:'DM Mono',monospace;
+  font-size:.58rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--gold);
+}
+
+.nav-links{
+  display:flex;
+  gap:2.8rem;
+  list-style:none;
+  align-items:center;
+}
+
+.nav-links a{
+  font-family:'DM Mono',monospace;
+  font-size:.68rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--mist);
+  text-decoration:none;
+  transition:color .25s;
+}
+
+.nav-links a:hover{
+  color:var(--gold2);
+}
+
+.nav-cta{
+  border:1px solid var(--border2);
+  color:var(--gold)!important;
+  padding:.55rem 1.5rem;
+}
+
+.nav-cta:hover{
+  background:var(--gold);
+  color:var(--night)!important;
+}
+
+/* HERO */
+
+.hero{
+  min-height:100vh;
+
+  padding-top:7.4rem;
+  padding-inline:4rem;
+  padding-bottom:5rem;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+
+  position:relative;
+  overflow:hidden;
+}
+
+.hero::before{
+  content:'';
+  position:absolute;
+  inset:0;
+
+  background:
+  radial-gradient(
+    ellipse 55% 55% at 65% 35%,
+    rgba(201,168,76,0.10) 0%,
+    transparent 65%
+  ),
+  radial-gradient(
+    ellipse 35% 45% at 15% 75%,
+    rgba(201,168,76,0.05) 0%,
+    transparent 60%
+  );
+
+  pointer-events:none;
+}
+
+/* Fine dot grid */
+
+.hero-dots{
+  position:absolute;
+  inset:0;
+
+  background-image:
+  radial-gradient(circle, rgba(201,168,76,0.12) 1px, transparent 1px);
+
+  background-size:44px 44px;
+
+  mask-image:
+  radial-gradient(
+    ellipse 80% 80% at 50% 50%,
+    black 30%,
+    transparent 100%
+  );
+
+  pointer-events:none;
+}
+
+/* ============================================================
+   DISC COLUMN — completely redesigned positioning
+   Small badge: independently positioned, aligned with h1 top
+   Large disc: independently positioned, stays where it was
+   Both share the same horizontal centre (right: 8%)
+   ============================================================ */
+
+.disc-column{
+  position:absolute;
+  /* Span the full hero so children can use top/bottom freely */
+  top:0;
+  bottom:0;
+  right:8%;
+  width:340px; /* matches large disc width so centering works */
+  z-index:5;
+  pointer-events:none;
+  /* NO flex — each child is absolutely positioned */
+}
+
+/* HERO BADGE (small spinning disc)
+   Aligned with the start of the h1 "Build with" line.
+   Hero padding-top = 7.4rem, kicker block ≈ 3rem → h1 starts ~10.5rem from top.
+   Nav height ≈ 4.8rem is already included in padding-top.
+   We nudge it a little further down so it sits at the first line of the h1. */
+
+.hero-badge{
+  position:absolute;
+  /* Place badge so its centre aligns with "Build with" line (~30% down the viewport) */
+  top: calc(7.4rem + 2.8rem); /* padding-top + kicker height ≈ h1 start */
+  left:50%;
+  transform:translateX(-50%);
+
+  width:120px;
+  height:120px;
+
+  border-radius:50%;
+  border:1px solid var(--border2);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  animation:spin 20s linear infinite;
+
+  opacity:.75;
+
+  background:rgba(255,255,255,0.01);
+  backdrop-filter:blur(2px);
+}
+
+.hero-badge-inner{
+  position:absolute;
+  inset:0;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-family:'DM Mono',monospace;
+  font-size:.52rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--gold);
+
+  text-align:center;
+  line-height:1.8;
+}
+
+@keyframes spin{
+  from{ transform:rotate(0deg) translateX(-50%); }
+  to{ transform:rotate(360deg) translateX(-50%); }
+}
+
+/* ROTATING DISC (large) — stays exactly where it was: centred vertically */
+
+.rotating-disc{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+
+  width:340px;
+  height:340px;
+  border-radius:50%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:
+    radial-gradient(circle at center,
+      rgba(255,255,255,0.04) 0%,
+      rgba(201,168,76,0.06) 30%,
+      rgba(9,9,15,0.98) 72%);
+
+  border:1px solid rgba(201,168,76,0.16);
+
+  box-shadow:
+    0 0 60px rgba(201,168,76,0.08),
+    inset 0 0 50px rgba(201,168,76,0.06);
+
+  animation:rotateDisc 18s linear infinite;
+}
+
+.rotating-disc::before{
+  content:'';
+  position:absolute;
+  inset:18px;
+  border-radius:50%;
+  border:1px dashed rgba(201,168,76,0.22);
+}
+
+.rotating-disc::after{
+  content:'';
+  position:absolute;
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  background:radial-gradient(circle, var(--gold2), var(--gold));
+  box-shadow:0 0 25px rgba(201,168,76,0.4);
+}
+
+.disc-ring{
+  position:absolute;
+  inset:42px;
+  border-radius:50%;
+  border:1px solid rgba(201,168,76,0.12);
+}
+
+.disc-line{
+  position:absolute;
+  width:2px;
+  height:50%;
+  background:linear-gradient(
+    to bottom,
+    rgba(201,168,76,0),
+    rgba(201,168,76,0.8)
+  );
+  top:0;
+  left:50%;
+  transform:translateX(-50%);
+  transform-origin:bottom;
+}
+
+.disc-line:nth-child(2){
+  transform:translateX(-50%) rotate(90deg);
+}
+.disc-line:nth-child(3){
+  transform:translateX(-50%) rotate(45deg);
+}
+.disc-line:nth-child(4){
+  transform:translateX(-50%) rotate(-45deg);
+}
+
+@keyframes rotateDisc{
+  from{ transform:translate(-50%,-50%) rotate(0deg); }
+  to{ transform:translate(-50%,-50%) rotate(360deg); }
+}
+
+@media (max-width:1100px){
+  .disc-column{
+    right:-10px;
+    opacity:0.45;
+    width:240px;
+  }
+  .rotating-disc{
+    width:240px;
+    height:240px;
+  }
+}
+
+@media (max-width:768px){
+  .disc-column{ display:none; }
+}
+
+/* HERO TEXT */
+
+.hero-kicker{
+  font-family:'DM Mono',monospace;
+  font-size:.68rem;
+  letter-spacing:.25em;
+  text-transform:uppercase;
+  color:var(--gold);
+
+  margin-bottom:2rem;
+
+  display:flex;
+  align-items:center;
+  gap:1.2rem;
+}
+
+.hero-kicker::before{
+  content:'';
+  width:2.5rem;
+  height:1px;
+  background:var(--gold);
+}
+
+.hero-h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(4.5rem,11vw,11rem);
+  font-weight:300;
+  line-height:.88;
+  letter-spacing:-0.01em;
+  margin-bottom:3.5rem;
+}
+
+.hero-h1 .thin{ color:rgba(255,252,248,0.35); }
+
+.hero-h1 em{
+  font-style:italic;
+  color:var(--gold2);
+  display:block;
+}
+
+.hero-row{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:2rem;
+  flex-wrap:wrap;
+}
+
+.hero-desc{
+  max-width:420px;
+  font-size:.95rem;
+  line-height:1.85;
+  color:var(--mist);
+}
+
+.hero-desc strong{ color:var(--cream); }
+
+.hero-btns{
+  display:flex;
+  gap:1rem;
+  flex-wrap:wrap;
+}
+
+.btn-gold{
+  background:var(--gold);
+  color:var(--night);
+
+  padding:.95rem 2.4rem;
+
+  font-family:'DM Mono',monospace;
+  font-size:.7rem;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  text-decoration:none;
+
+  transition:.25s;
+}
+
+.btn-gold:hover{
+  background:var(--gold2);
+  transform:translateY(-2px);
+}
+
+.btn-ghost{
+  border:1px solid var(--border2);
+  color:var(--mist);
+
+  padding:.95rem 2.4rem;
+
+  font-family:'DM Mono',monospace;
+  font-size:.7rem;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  text-decoration:none;
+
+  transition:.25s;
+}
+
+.btn-ghost:hover{
+  border-color:var(--gold2);
+  color:var(--gold2);
+  transform:translateY(-2px);
+}
+
+.hero-stats{
+  margin-top:5rem;
+  padding-top:3rem;
+
+  border-top:1px solid var(--border);
+
+  display:flex;
+  gap:4rem;
+  flex-wrap:wrap;
+}
+
+.stat-big{
+  font-family:'Cormorant Garamond',serif;
+  font-size:3rem;
+  font-weight:300;
+  line-height:1;
+}
+
+.stat-big em{
+  font-style:normal;
+  color:var(--gold);
+  font-size:1.6rem;
+}
+
+.stat-sm{
+  font-family:'DM Mono',monospace;
+  font-size:.62rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--mist);
+  margin-top:.5rem;
+}
+
+/* MARQUEE */
+
+.marquee-wrap{
+  background:var(--deep);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:1.1rem 0;
+  overflow:hidden;
+  white-space:nowrap;
+}
+
+.marquee-track{
+  display:inline-flex;
+  animation:marq 32s linear infinite;
+}
+
+.m-item{
+  font-family:'DM Mono',monospace;
+  font-size:.65rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--mist);
+
+  padding:0 2.8rem;
+
+  border-right:1px solid var(--border);
+
+  display:flex;
+  align-items:center;
+  gap:1.2rem;
+}
+
+.dot{
+  color:var(--gold);
+  font-size:.45rem;
+}
+
+@keyframes marq{
+  from{ transform:translateX(0); }
+  to{ transform:translateX(-50%); }
+}
+
+/* SECTION */
+
+section{ padding:9rem 4rem; }
+
+.s-kicker{
+  font-family:'DM Mono',monospace;
+  font-size:.62rem;
+  letter-spacing:.25em;
+  text-transform:uppercase;
+  color:var(--gold);
+
+  display:flex;
+  align-items:center;
+  gap:.9rem;
+
+  margin-bottom:1.4rem;
+}
+
+.s-kicker::before{
+  content:'';
+  width:1.8rem;
+  height:1px;
+  background:var(--gold);
+}
+
+.s-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.6rem,5vw,4.2rem);
+  font-weight:300;
+  line-height:1.05;
+}
+
+.s-title em{ font-style:italic; color:var(--gold2); }
+
+.s-body{
+  font-size:.92rem;
+  line-height:1.9;
+  color:var(--mist);
+  max-width:500px;
+  margin-top:1.1rem;
+  font-weight:300;
+}
+
+/* PRODUCTS */
+
+#products{ background:var(--night); }
+
+.prod-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  margin-bottom:5rem;
+  flex-wrap:wrap;
+  gap:2rem;
+}
+
+.prod-count{
+  font-family:'Cormorant Garamond',serif;
+  font-size:5rem;
+  font-weight:300;
+  color:rgba(201,168,76,0.12);
+  line-height:1;
+  letter-spacing:-0.02em;
+}
+
+.prod-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+
+  gap:1px;
+
+  background:var(--border);
+
+  border:1px solid var(--border);
+}
+
+.p-card{
+  background:var(--deep);
+  padding:2.8rem 2.2rem;
+  position:relative;
+  overflow:hidden;
+  transition:.35s;
+}
+
+.p-card:hover{ background:var(--card); }
+
+/* Gold line reveal on hover */
+.p-card::before{
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg, transparent, var(--gold), transparent);
+  transform:scaleX(0);
+  transform-origin:center;
+  transition:transform .5s ease;
+}
+.p-card:hover::before{ transform:scaleX(1); }
+
+.p-num{
+  font-family:'DM Mono',monospace;
+  color:var(--gold);
+  font-size:.58rem;
+  letter-spacing:.2em;
+  margin-bottom:1.5rem;
+  opacity:.7;
+}
+
+.p-icon{
+  font-size:1.9rem;
+  margin-bottom:1rem;
+  display:block;
+}
+
+.p-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.35rem;
+  font-weight:600;
+  letter-spacing:.01em;
+  margin-bottom:.6rem;
+  color:var(--cream);
+}
+
+.p-desc{
+  font-size:.82rem;
+  line-height:1.7;
+  color:var(--mist);
+  margin-bottom:1.6rem;
+  font-weight:300;
+}
+
+.p-tags{ display:flex; flex-wrap:wrap; gap:.4rem; }
+
+.ptag{
+  font-family:'DM Mono',monospace;
+  font-size:.58rem;
+  letter-spacing:.1em;
+  padding:.22rem .65rem;
+  border:1px solid var(--border2);
+  color:var(--gold);
+  border-radius:1px;
+  opacity:.75;
+}
+
+/* BRANDS */
+
+.brands-wrap{
+  margin-top:4rem;
+  padding-top:3rem;
+  border-top:1px solid var(--border);
+}
+
+.brands-label{
+  font-family:'DM Mono',monospace;
+  font-size:.62rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--mist);
+  margin-bottom:1.5rem;
+}
+
+.brands-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.8rem;
+}
+
+.brand-chip{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1rem;
+  font-weight:600;
+  letter-spacing:.02em;
+  color:var(--cream);
+  padding:.7rem 1.6rem;
+  border:1px solid var(--border2);
+  border-radius:1px;
+  transition:background .25s, border-color .25s, color .25s;
+  cursor:default;
+}
+
+.brand-chip:hover{ background:var(--gold); border-color:var(--gold); color:var(--night); }
+
+/* ABOUT */
+
+#about{
+  background:var(--deep);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9rem;
+  align-items:start;
+}
+
+.about-visual{
+  position:relative;
+  padding-top:2rem;
+}
+
+.about-frame{
+  border:1px solid var(--border);
+  padding:3rem;
+  position:relative;
+}
+
+.about-frame::before{
+  content:'';
+  position:absolute;
+  top:-8px; left:-8px; right:8px; bottom:8px;
+  border:1px solid var(--border);
+  pointer-events:none;
+}
+
+.about-name-block{
+  text-align:center;
+  padding:2rem 0;
+}
+
+.about-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.8rem;
+  font-weight:300;
+  line-height:1.1;
+  color:var(--cream);
+  letter-spacing:.02em;
+}
+
+.about-name em{ font-style:italic; color:var(--gold2); display:block; }
+
+.about-since{
+  font-family:'DM Mono',monospace;
+  font-size:.6rem;
+  letter-spacing:.25em;
+  text-transform:uppercase;
+  color:var(--mist);
+  margin-top:1rem;
+}
+
+.about-divider{ height:1px; background:var(--border); margin:2rem 0; }
+
+.about-owner{
+  display:flex;
+  align-items:center;
+  gap:1.2rem;
+}
+
+.owner-avatar{
+  width:48px; height:48px;
+  border-radius:50%;
+  border:1px solid var(--border2);
+  background:var(--card2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.4rem;
+  flex-shrink:0;
+}
+
+.owner-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem;
+  font-weight:600;
+  color:var(--cream);
+}
+
+.owner-role{
+  font-family:'DM Mono',monospace;
+  font-size:.6rem;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-top:.2rem;
+  opacity:.8;
+}
+
+.about-nums{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1px;
+  background:var(--border);
+  margin-top:1px;
+}
+
+.a-num-cell{
+  background:var(--deep);
+  padding:1.8rem 1.5rem;
+  border-top:1px solid transparent;
+  transition:border-color .3s, background .3s;
+}
+
+.a-num-cell:hover{ border-color:var(--gold); background:var(--card); }
+
+.a-num-big{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.5rem;
+  font-weight:300;
+  line-height:1;
+  color:var(--white);
+}
+
+.a-num-big em{ font-style:normal; color:var(--gold); }
+
+.a-num-label{
+  font-family:'DM Mono',monospace;
+  font-size:.6rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--mist);
+  margin-top:.4rem;
+}
+
+.about-right{ padding-top:2rem; }
+
+.about-pillars{
+  margin-top:3.5rem;
+  display:flex;
+  flex-direction:column;
+}
+
+.pillar{
+  display:flex;
+  gap:1.8rem;
+  align-items:flex-start;
+  padding:2rem 0;
+  border-bottom:1px solid var(--border);
+  transition:padding-left .3s;
+}
+
+.pillar:first-child{ padding-top:0; }
+.pillar:hover{ padding-left:.6rem; }
+
+.pillar-icon{
+  width:42px; height:42px;
+  flex-shrink:0;
+  border:1px solid var(--border2);
+  border-radius:1px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.1rem;
+  background:var(--card);
+}
+
+.pillar-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.15rem;
+  font-weight:600;
+  color:var(--cream);
+  margin-bottom:.35rem;
+}
+
+.pillar-text{ font-size:.83rem; color:var(--mist); line-height:1.75; font-weight:300; }
+
+/* SERVICES */
+
+#services{ background:var(--night); }
+
+.svc-top{ margin-bottom:5rem; }
+
+.svc-grid-main{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1px;
+  background:var(--border);
+  margin-bottom:1px;
+  border:1px solid var(--border);
+}
+
+.svc-grid-row{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  background:var(--border);
+  border:1px solid var(--border);
+  border-top:none;
+}
+
+.s-card{
+  background:var(--deep);
+  padding:3.5rem 2.8rem;
+  position:relative;
+  overflow:hidden;
+  transition:background .35s;
+}
+
+.s-card.lg{ padding:4.5rem 3.5rem; }
+.s-card:hover{ background:var(--card); }
+
+.s-card-n{
+  font-family:'Cormorant Garamond',serif;
+  font-size:7rem;
+  font-weight:300;
+  color:rgba(201,168,76,0.05);
+  position:absolute;
+  top:.5rem;
+  right:1.5rem;
+  line-height:1;
+  pointer-events:none;
+  transition:color .4s;
+}
+
+.s-card:hover .s-card-n{ color:rgba(201,168,76,0.1); }
+
+.s-card-line{
+  width:2rem; height:1px;
+  background:var(--gold);
+  margin-bottom:2.5rem;
+  opacity:.6;
+}
+
+.s-card-icon{ font-size:2rem; margin-bottom:1.5rem; display:block; }
+
+.s-card-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.5rem;
+  font-weight:600;
+  color:var(--cream);
+  margin-bottom:.8rem;
+  letter-spacing:.01em;
+}
+
+.s-card.lg .s-card-name{ font-size:2rem; }
+
+.s-card-desc{ font-size:.83rem; color:var(--mist); line-height:1.8; font-weight:300; }
+
+.s-card-link{
+  display:inline-flex;
+  align-items:center;
+  gap:.6rem;
+  margin-top:2rem;
+  font-family:'DM Mono',monospace;
+  font-size:.65rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--gold);
+  text-decoration:none;
+  opacity:.8;
+  transition:opacity .2s, gap .2s;
+}
+
+.s-card-link:hover{ opacity:1; gap:1rem; }
+
+/* CTA BAND */
+
+.cta-band{
+  background:var(--deep);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+
+  padding:6rem 4rem;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:3rem;
+  flex-wrap:wrap;
+
+  position:relative;
+  overflow:hidden;
+}
+
+.cta-band::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(ellipse 60% 80% at 50% 50%, rgba(201,168,76,0.06) 0%, transparent 70%);
+  pointer-events:none;
+}
+
+.cta-left{ position:relative; }
+
+.cta-kicker{
+  font-family:'DM Mono',monospace;
+  font-size:.62rem;
+  letter-spacing:.25em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:1.2rem;
+  display:flex;
+  align-items:center;
+  gap:.8rem;
+}
+
+.cta-kicker::before{ content:''; width:1.5rem; height:1px; background:var(--gold); }
+
+.cta-h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.2rem,4vw,3.5rem);
+  font-weight:300;
+  line-height:1.1;
+  color:var(--white);
+}
+
+.cta-h2 em{ font-style:italic; color:var(--gold2); }
+
+.addr-row{
+  display:flex;
+  align-items:flex-start;
+  gap:.8rem;
+  margin-top:1.2rem;
+  font-size:.82rem;
+  color:var(--mist);
+  line-height:1.65;
+  font-weight:300;
+}
+
+.addr-icon{ font-size:1rem; flex-shrink:0; margin-top:.05rem; }
+
+.gst-bar{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:1px;
+  padding:.65rem 1.2rem;
+  display:inline-flex;
+  align-items:center;
+  gap:.8rem;
+  margin-top:1.2rem;
+}
+
+.gst-label{
+  font-family:'DM Mono',monospace;
+  font-size:.58rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--mist);
+}
+
+.gst-val{
+  font-family:'DM Mono',monospace;
+  font-size:.72rem;
+  letter-spacing:.1em;
+  color:var(--gold);
+}
+
+.cta-right{ display:flex; flex-direction:column; gap:1rem; position:relative; }
+
+.cta-phone{
+  display:flex;
+  align-items:center;
+  gap:1.2rem;
+  padding:1.4rem 2.5rem;
+  background:var(--gold);
+  border-radius:1px;
+  text-decoration:none;
+  transition:background .25s, transform .25s;
+}
+
+.cta-phone:hover{ background:var(--gold2); transform:translateY(-2px); }
+
+.cta-phone-icon{ font-size:1.3rem; }
+
+.cta-phone-label{
+  font-family:'DM Mono',monospace;
+  font-size:.58rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--night);
+  opacity:.7;
+  margin-bottom:.15rem;
+}
+
+.cta-phone-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.5rem;
+  font-weight:600;
+  color:var(--night);
+  letter-spacing:.02em;
+}
+
+.cta-email{
+  display:flex;
+  align-items:center;
+  gap:1.2rem;
+  padding:1.1rem 2.5rem;
+  border:1px solid var(--border2);
+  border-radius:1px;
+  text-decoration:none;
+  transition:border-color .25s, transform .25s;
+  color:var(--mist);
+}
+
+.cta-email:hover{ border-color:var(--gold2); color:var(--gold2); transform:translateY(-2px); }
+
+.cta-email-label{
+  font-family:'DM Mono',monospace;
+  font-size:.65rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+
+/* FOOTER */
+
+footer{
+  background:var(--night);
+  border-top:1px solid var(--border);
+  padding:3rem 4rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:1.5rem;
+}
+
+.f-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.3rem;
+  font-weight:600;
+  color:var(--cream);
+  letter-spacing:.02em;
+}
+
+.f-logo em{ font-style:italic; color:var(--gold); }
+
+.f-nav{ display:flex; gap:2.5rem; list-style:none; }
+
+.f-nav a{
+  font-family:'DM Mono',monospace;
+  font-size:.62rem;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--mist);
+  text-decoration:none;
+  transition:color .2s;
+}
+
+.f-nav a:hover{ color:var(--gold2); }
+
+.f-copy{
+  font-family:'DM Mono',monospace;
+  font-size:.58rem;
+  color:var(--mist);
+  letter-spacing:.1em;
+  opacity:.6;
+}
+
+/* SCROLL REVEAL */
+
+.reveal{ opacity:0; transform:translateY(24px); transition:opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1); }
+.reveal.in{ opacity:1; transform:none; }
+
+/* RESPONSIVE */
+
+@media(max-width:1024px){
+  .prod-grid{ grid-template-columns:repeat(2,1fr)!important; }
+  .brands-row{ gap:.6rem; }
+}
+
+@media(max-width:768px){
+  nav{ padding:1.2rem 1.8rem; }
+  .nav-links{ display:none; }
+
+  section{ padding:6rem 1.8rem; }
+  .hero{ padding-top:6.2rem; padding-inline:1.8rem; padding-bottom:4rem; }
+
+  .prod-grid{ grid-template-columns:1fr 1fr; }
+
+  #about{ grid-template-columns:1fr; gap:4rem; }
+
+  .svc-grid-main{ grid-template-columns:1fr; }
+  .svc-grid-row{ grid-template-columns:1fr; }
+
+  .cta-band{ padding:4rem 1.8rem; }
+  footer{ padding:2rem 1.8rem; flex-direction:column; align-items:flex-start; }
+}
+
+@media(max-width:600px){
+  .prod-grid{ grid-template-columns:1fr!important; }
+  .about-nums{ grid-template-columns:1fr 1fr; }
+  .hero-h1{ font-size:4rem; }
+  .hero-stats{ gap:2rem; flex-wrap:wrap; }
+  .cta-right{ width:100%; }
+  .cta-phone, .cta-email{ width:100%; }
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="cur"></div>
+
+<!-- NAV -->
+<nav>
+
+  <a href="#" class="logo">
+    Gayatri
+    <span class="logo-sep">·</span>
+    Traders
+    <span class="logo-sub">Est. 2001</span>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#products">Products</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+
+  <div class="hero-dots"></div>
+
+  <!--
+    Disc column: small badge independently positioned at top (aligned with h1),
+    large disc independently positioned at vertical centre.
+    Both share the same horizontal axis (disc-column right:8%, width:340px).
+  -->
+  <div class="disc-column" aria-hidden="true">
+    <div class="hero-badge">
+      <div class="hero-badge-inner">
+        Since<br>2001<br>·<br>Ahmedabad
+      </div>
+    </div>
+    <div class="rotating-disc">
+      <div class="disc-ring"></div>
+      <div class="disc-line"></div>
+      <div class="disc-line"></div>
+      <div class="disc-line"></div>
+      <div class="disc-line"></div>
+    </div>
+  </div>
+
+  <div class="hero-kicker">
+    Premium Building Materials — Ahmedabad, Gujarat &nbsp;·&nbsp; Authorised UltraTech Cement Agency
+  </div>
+
+  <h1 class="hero-h1">
+    <span class="thin">Build with</span>
+    <em>Integrity.</em>
+    Deliver with
+    <em>Pride.</em>
+  </h1>
+
+  <div class="hero-row">
+
+    <p class="hero-desc">
+      <strong>Gayatri Traders</strong>
+      has been Gujarat's most trusted source for premium structural and finishing materials for over 25 years — from cement and steel to tiles and waterproofing.
+    </p>
+
+    <div class="hero-btns">
+      <a href="#products" class="btn-gold">Browse Catalogue</a>
+      <a href="#contact" class="btn-ghost">Get a Quote</a>
+    </div>
+
+  </div>
+
+  <div class="hero-stats">
+
+    <div class="stat">
+      <div class="stat-big">25<em>+</em></div>
+      <div class="stat-sm">Years in Trade</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-big">800<em>+</em></div>
+      <div class="stat-sm">Projects Delivered</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-big">50<em>+</em></div>
+      <div class="stat-sm">Material Categories</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-big">98<em>%</em></div>
+      <div class="stat-sm">On-Time Delivery</div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+
+  <div class="marquee-track">
+
+    <div class="m-item">Structural Steel <span class="dot">◆</span></div>
+    <div class="m-item">TMT Bars · Fe 500 <span class="dot">◆</span></div>
+    <div class="m-item">OPC & PPC Cement <span class="dot">◆</span></div>
+    <div class="m-item">AAC Blocks <span class="dot">◆</span></div>
+    <div class="m-item">Roofing Sheets <span class="dot">◆</span></div>
+    <div class="m-item">Waterproofing Systems <span class="dot">◆</span></div>
+    <div class="m-item">Vitrified Tiles <span class="dot">◆</span></div>
+    <div class="m-item">BWR & BWP Plywood <span class="dot">◆</span></div>
+    <div class="m-item">Structural Steel <span class="dot">◆</span></div>
+    <div class="m-item">TMT Bars · Fe 500 <span class="dot">◆</span></div>
+    <div class="m-item">OPC & PPC Cement <span class="dot">◆</span></div>
+    <div class="m-item">AAC Blocks <span class="dot">◆</span></div>
+    <div class="m-item">Roofing Sheets <span class="dot">◆</span></div>
+    <div class="m-item">Waterproofing Systems <span class="dot">◆</span></div>
+    <div class="m-item">Vitrified Tiles <span class="dot">◆</span></div>
+    <div class="m-item">BWR & BWP Plywood <span class="dot">◆</span></div>
+
+  </div>
+
+</div>
+
+<!-- PRODUCTS -->
+<section id="products">
+
+  <div class="prod-top reveal">
+    <div>
+      <div class="s-kicker">Our Catalogue</div>
+      <h2 class="s-title">What We <em>Supply</em></h2>
+      <p class="s-body">Cement · Greet · Kapchi · Sand · Bricks · Hardware · Sanitaryware · Pipe Fittings · Tools · Construction Chemicals</p>
+    </div>
+    <div class="prod-count">10</div>
+  </div>
+
+  <div class="prod-grid">
+
+    <div class="p-card reveal" style="border-top:2px solid var(--gold);">
+      <div class="p-num">/ 01</div>
+      <span class="p-icon">🪨</span>
+      <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-bottom:.5rem;">
+        <div class="p-name" style="margin-bottom:0">Cement</div>
+        <span style="font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;background:var(--gold);color:var(--night);padding:.15rem .45rem;border-radius:1px;white-space:nowrap;">Auth. Agency</span>
+      </div>
+      <p class="p-desc">Official UltraTech Cement authorised dealer — OPC 43, OPC 53 & PPC in bags and bulk.</p>
+      <div class="p-tags"><span class="ptag">UltraTech</span><span class="ptag">OPC 53</span><span class="ptag">PPC</span></div>
+    </div>
+
+    <div class="p-card reveal">
+      <div class="p-num">/ 02</div>
+      <span class="p-icon">🪵</span>
+      <div class="p-name">Greet & Kapchi</div>
+      <p class="p-desc">Construction aggregates — gravel and crushed stone in standard grades for concrete and foundation work.</p>
+      <div class="p-tags"><span class="ptag">Greet</span><span class="ptag">Kapchi</span><span class="ptag">Aggregate</span></div>
+    </div>
+
+    <div class="p-card reveal">
+      <div class="p-num">/ 03</div>
+      <span class="p-icon">🏜️</span>
+      <div class="p-name">Sand</div>
+      <p class="p-desc">River sand and M-sand in bulk supply for masonry, plastering, and concrete across all project scales.</p>
+      <div class="p-tags"><span class="ptag">River Sand</span><span class="ptag">M-Sand</span><span class="ptag">Bulk</span></div>
+    </div>
+
+    <div class="p-card reveal">
+      <div class="p-num">/ 04</div>
+      <span class="p-icon">🧱</span>
+      <div class="p-name">Bricks</div>
+      <p class="p-desc">AAC blocks, fly-ash bricks and clay bricks in IS-standard sizes for all walling applications.</p>
+      <div class="p-tags"><span class="ptag">AAC</span><span class="ptag">Fly-Ash</span><span class="ptag">Clay</span></div>
+    </div>
+
+    <div class="p-card reveal">
+      <div class="p-num">/ 05</div>
+      <span class="p-icon">🔩</span>
+      <div class="p-name">Hardware</div>
+      <p class="p-desc">Anchors, bolts, hinges, locks, and all site hardware in bulk and retail quantities.</p>
+      <div class="p-tags"><span class="ptag">Structural</span><span class="ptag">Fixtures</span><span class="ptag">Fasteners</span></div>
+    </div>
+
+    <div class="p-card reveal">
+      <div class="p-num">/ 06</div>
+      <span class="p-icon">🚿</span>
+      <div class="p-name">Sanitaryware</div>
+      <p class="p-desc">WCs, washbasins, faucets and bath accessories from Jaquar and CERA for every budget.</p>
+      <div class="p-tags"><span class="ptag">Jaquar</span><span class="ptag">CERA</span><span class="ptag">Faucets</span></div>
+    </div>
+
+    <div class="p-card reveal">
+      <div class="p-num">/ 07</div>
+      <span class="p-icon">🔧</span>
+      <div class="p-name">Pipe Fittings</div>
+      <p class="p-desc">CPVC, UPVC and plumbing pipes from Prince Piping and Astral — complete fittings in stock.</p>
+      <div class="p-tags"><span class="ptag">Prince</span><span class="ptag">Astral</span><span class="ptag">CPVC</span></div>
+    </div>
+
+    <div class="p-card reveal">
+      <div class="p-num">/ 08</div>
+      <span class="p-icon">🛠️</span>
+      <div class="p-name">Tools</div>
+      <p class="p-desc">Hand tools, power tools and site equipment for construction professionals from trusted brands.</p>
+      <div class="p-tags"><span class="ptag">Hand Tools</span><span class="ptag">Power Tools</span><span class="ptag">Equipment</span></div>
+    </div>
+
+    <div class="p-card reveal">
+      <div class="p-num">/ 09</div>
+      <span class="p-icon">⚗️</span>
+      <div class="p-name">Construction Chemicals</div>
+      <p class="p-desc">Fevicol adhesives, waterproofing compounds, tile grouts, admixtures and specialty chemicals.</p>
+      <div class="p-tags"><span class="ptag">Fevicol</span><span class="ptag">Waterproofing</span><span class="ptag">Admixtures</span></div>
+    </div>
+
+    <div class="p-card reveal">
+      <div class="p-num">/ 10</div>
+      <span class="p-icon">🏗️</span>
+      <div class="p-name">Steel & More</div>
+      <p class="p-desc">TMT bars, MS channels, roofing sheets, tiles, plywood, and all remaining building material needs.</p>
+      <div class="p-tags"><span class="ptag">TMT Bars</span><span class="ptag">Roofing</span><span class="ptag">Tiles</span></div>
+    </div>
+
+  </div>
+
+  <!-- BRANDS -->
+  <div class="brands-wrap reveal">
+    <div class="brands-label">Brands We Carry</div>
+    <div class="brands-row">
+      <div class="brand-chip">UltraTech Cement</div>
+      <div class="brand-chip">Jaquar</div>
+      <div class="brand-chip">Fevicol</div>
+      <div class="brand-chip">CERA</div>
+      <div class="brand-chip">Prince Piping</div>
+      <div class="brand-chip">Astral Pipes</div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+
+  <div class="about-visual reveal">
+    <div class="about-frame">
+      <div class="about-name-block">
+        <div class="about-name">
+          Gayatri
+          <em>Traders</em>
+        </div>
+        <div class="about-since">Est. 2001 · Lapkaman, Ahmedabad-380061</div>
+      </div>
+
+      <div class="about-divider"></div>
+
+      <div class="about-owner">
+        <div class="owner-avatar">👤</div>
+        <div>
+          <div class="owner-name">Pulkit Patel</div>
+          <div class="owner-role">Proprietor & Founder</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-nums">
+      <div class="a-num-cell">
+        <div class="a-num-big">25<em>+</em></div>
+        <div class="a-num-label">Years Active</div>
+      </div>
+      <div class="a-num-cell">
+        <div class="a-num-big">800<em>+</em></div>
+        <div class="a-num-label">Projects</div>
+      </div>
+      <div class="a-num-cell">
+        <div class="a-num-big">200<em>+</em></div>
+        <div class="a-num-label">Clients</div>
+      </div>
+      <div class="a-num-cell">
+        <div class="a-num-big">50<em>+</em></div>
+        <div class="a-num-label">Categories</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-right reveal">
+    <div class="s-kicker">Who We Are</div>
+    <h2 class="s-title">Gujarat's Most <em>Trusted</em> Material Partner</h2>
+    <p class="s-body">
+      Founded in 2001 by Pulkit Patel in Ahmedabad, Gayatri Traders has spent over 24 years earning the trust of contractors, architects, and developers across Gujarat. We combine competitive pricing with an unwavering commitment to quality and timely delivery.
+    </p>
+    <div class="about-pillars">
+      <div class="pillar">
+        <div class="pillar-icon">🏆</div>
+        <div>
+          <div class="pillar-title">Authorised UltraTech Cement Agency</div>
+          <p class="pillar-text">Gayatri Traders is an official authorised dealer of UltraTech Cement — India's largest cement brand. Get genuine product, manufacturer pricing, and assured quality directly from an authorised source.</p>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">✦</div>
+        <div>
+          <div class="pillar-title">BIS-Certified Sourcing</div>
+          <p class="pillar-text">Every product carries valid BIS certification and full manufacturer traceability. We never compromise on grade compliance — your structure's integrity depends on it.</p>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">🚚</div>
+        <div>
+          <div class="pillar-title">Same-Day Dispatch</div>
+          <p class="pillar-text">Orders confirmed before 2 PM are dispatched the same day with our fleet of 20+ GPS-tracked vehicles, covering Ahmedabad, Gandhinagar, Surat, and beyond.</p>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">💳</div>
+        <div>
+          <div class="pillar-title">Flexible Credit Terms</div>
+          <p class="pillar-text">Extended payment cycles for registered contractors and bulk buyers, with complete GST documentation and mill test certificates on every order.</p>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">📐</div>
+        <div>
+          <div class="pillar-title">Free Material Estimation</div>
+          <p class="pillar-text">Share your drawings and BOQ — our estimation team returns accurate quantities and a competitive quote within 4 working hours, at no charge.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+
+  <div class="svc-top reveal">
+    <div class="s-kicker">What We Offer</div>
+    <h2 class="s-title">Our <em>Services</em></h2>
+    <p class="s-body">Beyond supply — complete procurement support from first inquiry to final delivery on site.</p>
+  </div>
+
+  <div class="svc-grid-main">
+    <div class="s-card lg reveal">
+      <div class="s-card-n">01</div>
+      <span class="s-card-icon">📦</span>
+      <div class="s-card-name">Bulk Supply & Procurement</div>
+      <p class="s-card-desc">High-volume orders for contractors and developers with negotiated rates, priority stock allocation, and scheduled site deliveries — single-source procurement across all categories.</p>
+      <a href="#contact" class="s-card-link">Get a quote →</a>
+    </div>
+    <div class="s-card lg reveal">
+      <div class="s-card-n">02</div>
+      <span class="s-card-icon">🚚</span>
+      <div class="s-card-name">Doorstep Delivery</div>
+      <p class="s-card-desc">Our 20+ truck fleet covers Ahmedabad, Gandhinagar, Surat, Vadodara, and surrounding districts. Crane-assisted unloading available for heavy structural materials on request.</p>
+      <a href="#contact" class="s-card-link">Check coverage →</a>
+    </div>
+  </div>
+
+  <div class="svc-grid-row">
+    <div class="s-card reveal">
+      <div class="s-card-n">03</div>
+      <div class="s-card-line"></div>
+      <div class="s-card-name">Material Estimation</div>
+      <p class="s-card-desc">Send your drawings and BOQ — we return accurate quantities and costs within 4 hours, free of charge.</p>
+    </div>
+    <div class="s-card reveal">
+      <div class="s-card-n">04</div>
+      <div class="s-card-line"></div>
+      <div class="s-card-name">Quality Inspection</div>
+      <p class="s-card-desc">In-house and third-party testing for steel, cement, and concrete before dispatch from our yard.</p>
+    </div>
+    <div class="s-card reveal">
+      <div class="s-card-n">05</div>
+      <div class="s-card-line"></div>
+      <div class="s-card-name">GST Billing & MTC Docs</div>
+      <p class="s-card-desc">Compliant GST invoicing, delivery challans, mill test certificates, and full documentation every time.</p>
+    </div>
+  </div>
+
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band reveal" id="contact">
+  <div class="cta-left">
+    <div class="cta-kicker">Get In Touch</div>
+    <h2 class="cta-h2">Ready to Source Your<br><em>Next Project?</em></h2>
+    <div class="addr-row">
+      <span class="addr-icon">📍</span>
+      <span>B/S. HDFC Bank, Opp. Lapkaman Lake,<br>Lapkaman, Ahmedabad – 380061</span>
+    </div>
+    <div class="gst-bar">
+      <span class="gst-label">GST IN</span>
+      <span class="gst-val">24AJEPP8873D2ZZ</span>
+    </div>
+  </div>
+  <div class="cta-right">
+    <a href="tel:+919998868710" class="cta-phone">
+      <div class="cta-phone-icon">📞</div>
+      <div class="cta-phone-text">
+        <div class="cta-phone-label">Call Pulkit Patel</div>
+        <div class="cta-phone-num">+91 99988 68710</div>
+      </div>
+    </a>
+    <a href="mailto:15gayatritraders@gmail.com" class="cta-email">
+      <span>✉</span>
+      <span class="cta-email-label">15gayatritraders@gmail.com</span>
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">Gayatri <em>Traders</em></div>
+  <ul class="f-nav">
+    <li><a href="#products">Products</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="f-copy">© 2025 Gayatri Traders · GST: 24AJEPP8873D2ZZ · B/S. HDFC Bank, Opp. Lapkaman Lake, Lapkaman, Ahmedabad-380061</div>
+</footer>
+
+<script>
+
+/* CURSOR */
+
+const cur = document.getElementById('cur');
+
+document.addEventListener('mousemove', e => {
+  cur.style.left = e.clientX + 'px';
+  cur.style.top = e.clientY + 'px';
+});
+
+document.querySelectorAll('a, button, .p-card, .s-card, .a-num-cell, .pillar').forEach(el => {
+  el.addEventListener('mouseenter', () => cur.classList.add('grow'));
+  el.addEventListener('mouseleave', () => cur.classList.remove('grow'));
+});
+
+/* SCROLL REVEAL */
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('in'), i * 90);
+      io.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.07 });
+
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+</script>
+
+</body>
+</html>
